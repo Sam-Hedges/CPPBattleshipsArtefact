@@ -1,5 +1,3 @@
-﻿  CPPBattleshipsArtefact.cpp
-  Input.cpp
-  Menu.cpp
-  Generating Code...
+﻿  Menu.cpp
+C:\Users\samhe\OneDrive\Documents\Game Development\C++ Projects\CPPBattleshipsArtefact\CPPBattleshipsArtefact\Menu.cpp(59,21): warning C4018: '<': signed/unsigned mismatch
   CPPBattleshipsArtefact.vcxproj -> C:\Users\samhe\OneDrive\Documents\Game Development\C++ Projects\CPPBattleshipsArtefact\Debug\CPPBattleshipsArtefact.exe

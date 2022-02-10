@@ -1,5 +1,15 @@
 #include "Input.h"
 
+// This class serves as a wrapper to make calling inputs more human readable
+// in other parts of this program.
+//
+// GetAsyncKeyState() returns if a key was up or down at the time called.
+// The key is determined by a virtual-key code; ref "https://rb.gy/tjnpjk".
+
+/// <summary>
+/// Returns 
+/// </summary>
+/// <returns></returns>
 SHORT Input::UpArrow() { return GetAsyncKeyState(VK_UP); }
 
 SHORT Input::DownArrow() { return GetAsyncKeyState(VK_DOWN); }

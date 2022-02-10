@@ -9,11 +9,6 @@
 #include <windows.h>
 #include "Menu.h"
 
-HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE); // used for goto
-COORD CursorPosition; // used for goto
-
-void gotoXY(int, int); // function defined below if this is new to you.
-
 int main()
 {
 	//Map playerMap(Vector2(10, 10));
@@ -22,7 +17,10 @@ int main()
 
 	ShowWindow(GetConsoleWindow(), SW_MAXIMIZE);
 
-	Menu::MainMenu();
+	string title = "Main Menu";
+	string options[] = { "Start", "Settings", "Quit" };
+
+	Menu::DisplayMenu(title, options);
 
 	return 0;
 }

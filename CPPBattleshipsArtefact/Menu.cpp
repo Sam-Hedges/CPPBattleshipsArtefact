@@ -1,71 +1,127 @@
 #include "Menu.h"
 
-void Menu::PrintCentered(const char* s)
+/// <summary>
+/// Prints a string centered to the current console size
+/// </summary>
+/// <param name="string">Is a const char* pointer so a string
+/// can be entered directly with "" as a parameter. Use .c_str() to
+/// convert a string variable to the correct type.</param>
+void Menu::PrintCentered(const char* string)
 {
-	HANDLE hOut;
-	hOut = GetStdHandle(STD_OUTPUT_HANDLE);
-	COORD NewSBSize;
-	NewSBSize = GetLargestConsoleWindowSize(hOut);
-	int l = strlen(s);
-	int pos = (int)((NewSBSize.X - l) / 2);
-	for (int i = 0; i < pos; i++)
-		cout << " ";
+	// Used to store data on the current console screen buffer
+	CONSOLE_SCREEN_BUFFER_INFO CSBI;
 
-	cout << s << endl;
+	// Gets the standard output device; the active console screen-buffer
+	const HANDLE hOut = GetStdHandle(STD_OUTPUT_HANDLE);
+
+	// Stores the data of hOut in csbi via a reference
+	GetConsoleScreenBufferInfo(hOut, &CSBI);
+
+	// Saves the current screen size of the active console screen-buffer
+	const COORD currentScreenSize = CSBI.dwSize;
+
+	// Gets the length of the string
+	const int stringLength = strlen(string);
+
+	// Figure out how many spaces in needed in order for string to be centered
+	const int screenPos = (currentScreenSize.X - stringLength) / 2;
+
+	// Adds the necessary amount of spaces in order to center the string
+	for (int i = 0; i < screenPos; i++) { cout << " "; }
+
+	// Prints the string to the console
+	cout << string << endl;
 }
 
-
-void Menu::MainMenu()
+int Menu::DisplayMenu(string &title, string options[])
 {
-	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-	bool running = true;
+	const HANDLE hOut = GetStdHandle(STD_OUTPUT_HANDLE);
 	int menuIndex = 0;
 
-	while (running)
+	while (true)
 	{
+		// Clears the console window
 		system("CLS");
+
+		if (menuIndex == -1)
+		{
+			menuIndex = 2;
+		}
+		if (menuIndex == 3)
+		{
+			menuIndex = 0;
+		}
+
+		const char* t = title.c_str();
+		//PrintCentered(t);
+		//PrintCentered(" ");
+
+		for (int i = 0; i < options->size(); i++)
+		{
+			// Save the current option string as a const char*
+			// Refer to PrintCentered as to why this is
+			const char* currentOption = options[i].c_str();
+
+			SetConsoleTextAttribute(hOut, White);
+
+			if (i == menuIndex)
+			{
+				SetConsoleTextAttribute(hOut, Green);
+				PrintCentered(currentOption);
+				SetConsoleTextAttribute(hOut, White);
+				continue;
+			}
+
+			PrintCentered(currentOption);
+		}
+
+		/*
 		switch (menuIndex)
 		{
 			case 0:
-				SetConsoleTextAttribute(hConsole, 2);
+				SetConsoleTextAttribute(hOut, Green);
 				PrintCentered("asdfasdf");
-				SetConsoleTextAttribute(hConsole, 15);
+				SetConsoleTextAttribute(hOut, White);
 				PrintCentered("adfasd");
 				PrintCentered("adgfdsfg");
 				break;
 			case 1:
 				PrintCentered("asdfasdf");
-				SetConsoleTextAttribute(hConsole, 2);
+				SetConsoleTextAttribute(hOut, Green);
 				PrintCentered("adfasd");
-				SetConsoleTextAttribute(hConsole, 15);
+				SetConsoleTextAttribute(hOut, White);
 				PrintCentered("adgfdsfg");
 				break;
 			case 2:
 				PrintCentered("asdfasdf");
 				PrintCentered("adfasd");
-				SetConsoleTextAttribute(hConsole, 2);
+				SetConsoleTextAttribute(hOut, Green);
 				PrintCentered("adgfdsfg");
 				break;
+			default:
+				menuIndex = 0;
+				break;
 		}
-		SetConsoleTextAttribute(hConsole, 15);
+		SetConsoleTextAttribute(hOut, White);
+		*/
 
-		system("pause>nul"); // the >nul bit causes it the print no message
+		// Pauses the system for an input
+		// The >nul forces it to print no message
+		system("pause>nul");
 
+		// If the arrows are pressed, the index of the current options is
+		// Incremented or decremented according to the input
 		if (Input::UpArrow())
 		{
 			menuIndex--;
-			if (menuIndex == -1)
-			{
-				menuIndex = 2;
-			}
 		}
 		else if (Input::DownArrow())
 		{
 			menuIndex++;
-			if (menuIndex == 3)
-			{
-				menuIndex = 0;
-			}
+		}
+		else if (Input::Enter())
+		{
+			return menuIndex;
 		}
 	}
 }
