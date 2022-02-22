@@ -1,127 +1,70 @@
 #include "Menu.h"
 
-/// <summary>
-/// Prints a string centered to the current console size
-/// </summary>
-/// <param name="string">Is a const char* pointer so a string
-/// can be entered directly with "" as a parameter. Use .c_str() to
-/// convert a string variable to the correct type.</param>
-void Menu::PrintCentered(const char* string)
+int Menu::DisplayMenu(string &title, vector<string> options)
 {
-	// Used to store data on the current console screen buffer
-	CONSOLE_SCREEN_BUFFER_INFO CSBI;
-
 	// Gets the standard output device; the active console screen-buffer
 	const HANDLE hOut = GetStdHandle(STD_OUTPUT_HANDLE);
 
-	// Stores the data of hOut in csbi via a reference
-	GetConsoleScreenBufferInfo(hOut, &CSBI);
+	// Used to reduce the amount of size() calls of options
+	const int optionsSize = options.size();
 
-	// Saves the current screen size of the active console screen-buffer
-	const COORD currentScreenSize = CSBI.dwSize;
+	// Used the initialize the vector of coordinates
+	COORD origin; origin.X = 0; origin.Y = 0;
 
-	// Gets the length of the string
-	const int stringLength = strlen(string);
+	// Stores the postions of all the menu options
+	vector<COORD> linePos(optionsSize, origin);
 
-	// Figure out how many spaces in needed in order for string to be centered
-	const int screenPos = (currentScreenSize.X - stringLength) / 2;
+	// Used the navigate the menu and store which option is selected
+	int menuIndex = 0; int lastMenuIndex = -1;
+	
+	#pragma region InitMenu
 
-	// Adds the necessary amount of spaces in order to center the string
-	for (int i = 0; i < screenPos; i++) { cout << " "; }
+	// Prints the menu title
+	Output::PrintCentered(title.c_str());
+	Output::PrintCentered(" ");
 
-	// Prints the string to the console
-	cout << string << endl;
-}
+	// Loops through and prints each option
+	for (int i = 0; i < optionsSize; i++)
+	{
+		// Save the current option string as a const char*
+		// Refer to PrintCentered as to why this is
+		const char* currentOption = options[i].c_str();
 
-int Menu::DisplayMenu(string &title, string options[])
-{
-	const HANDLE hOut = GetStdHandle(STD_OUTPUT_HANDLE);
-	int menuIndex = 0;
+		// Gets the current colour needed for option
+		const int currentColour = i == menuIndex ? (int)Output::ConsoleColour::Green : (int)Output::ConsoleColour::White;
+
+		// Prints the options
+		linePos[i] = Output::PrintCentered(currentOption, currentColour);
+	}
+
+	#pragma endregion Prints the whole menu to the screen
 
 	while (true)
 	{
-		// Clears the console window
-		system("CLS");
+		// If the menu index goes out of bounds it's wrapped around to the opposite option
+		menuIndex = menuIndex == optionsSize ? 0 : menuIndex < 0 ? optionsSize - 1 : menuIndex;
 
-		if (menuIndex == -1)
-		{
-			menuIndex = 2;
-		}
-		if (menuIndex == 3)
-		{
-			menuIndex = 0;
-		}
-
-		const char* t = title.c_str();
-		//PrintCentered(t);
-		//PrintCentered(" ");
-
-		for (int i = 0; i < options->size(); i++)
-		{
-			// Save the current option string as a const char*
-			// Refer to PrintCentered as to why this is
-			const char* currentOption = options[i].c_str();
-
-			SetConsoleTextAttribute(hOut, White);
-
-			if (i == menuIndex)
-			{
-				SetConsoleTextAttribute(hOut, Green);
-				PrintCentered(currentOption);
-				SetConsoleTextAttribute(hOut, White);
-				continue;
-			}
-
-			PrintCentered(currentOption);
-		}
-
-		/*
-		switch (menuIndex)
-		{
-			case 0:
-				SetConsoleTextAttribute(hOut, Green);
-				PrintCentered("asdfasdf");
-				SetConsoleTextAttribute(hOut, White);
-				PrintCentered("adfasd");
-				PrintCentered("adgfdsfg");
-				break;
-			case 1:
-				PrintCentered("asdfasdf");
-				SetConsoleTextAttribute(hOut, Green);
-				PrintCentered("adfasd");
-				SetConsoleTextAttribute(hOut, White);
-				PrintCentered("adgfdsfg");
-				break;
-			case 2:
-				PrintCentered("asdfasdf");
-				PrintCentered("adfasd");
-				SetConsoleTextAttribute(hOut, Green);
-				PrintCentered("adgfdsfg");
-				break;
-			default:
-				menuIndex = 0;
-				break;
-		}
-		SetConsoleTextAttribute(hOut, White);
-		*/
+		// Prints over the current menu index in the selection colour
+		Output::OverridePrint(options[menuIndex].c_str(), linePos[menuIndex], menuIndex, lastMenuIndex);
 
 		// Pauses the system for an input
-		// The >nul forces it to print no message
+		// The >nul stops it printing a message
 		system("pause>nul");
+
+		// Sets the 
+		lastMenuIndex = menuIndex;
+		Output::OverridePrint(options[lastMenuIndex].c_str(), linePos[lastMenuIndex], menuIndex, lastMenuIndex);
 
 		// If the arrows are pressed, the index of the current options is
 		// Incremented or decremented according to the input
-		if (Input::UpArrow())
-		{
-			menuIndex--;
+		// Enter returns the current menu index (which option was selected)
+		if (Input::UpArrow()) {	menuIndex--; }
+		else if (Input::DownArrow()) { menuIndex++;	}
+		else if (Input::Enter()) 
+		{ 
+			system("CLS");
+			return menuIndex; 
 		}
-		else if (Input::DownArrow())
-		{
-			menuIndex++;
-		}
-		else if (Input::Enter())
-		{
-			return menuIndex;
-		}
+
 	}
 }

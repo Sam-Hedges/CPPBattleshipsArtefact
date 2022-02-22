@@ -9,11 +9,6 @@ Map::Map(Vector2 mapSize)
 		for (int row = 0; row < temp[col].size(); row++)
 		{
 			temp[col][row].SetCoord(row, col);
-			//cout << temp[col][row].position.StrVec() << endl;
-			if (col == 4 && row == 3)
-			{
-				temp[row][col].isShip = true;
-			}
 		}
 	}
 

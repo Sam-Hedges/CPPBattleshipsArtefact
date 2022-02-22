@@ -1,23 +1,15 @@
 #pragma once
 #include <iostream>
+#include <vector>
 #include <cstdlib>
 #include "Input.h"
+#include "Output.h"
 using namespace std;
 
 class Menu
 {
 	public:
-		static void PrintCentered(const char* string);
-		static int DisplayMenu(string &title, string options[]);
-		enum ConsoleColour
-		{
-			Dark_Blue = 9,
-			Green,
-			Light_Blue,
-			Red,
-			Magenta,
-			Yellow,
-			White
-		};
+		static int DisplayMenu(string &title, vector<string> options);
+
 };
 

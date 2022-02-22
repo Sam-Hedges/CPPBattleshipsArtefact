@@ -4,23 +4,34 @@
 #include <iostream>
 #include "Map.h"
 #include "Grid.h"
-
 #include <conio.h>
 #include <windows.h>
 #include "Menu.h"
 
 int main()
 {
-	//Map playerMap(Vector2(10, 10));
-
-	//Grid::DrawGrid(playerMap.map);
+	Map playerMap(Vector2(10, 10));
 
 	ShowWindow(GetConsoleWindow(), SW_MAXIMIZE);
 
-	string title = "Main Menu";
-	string options[] = { "Start", "Settings", "Quit" };
+	string title = "Main  Menu";
+	vector<string> options = { "Game", "Settings", "Quit" };
 
-	Menu::DisplayMenu(title, options);
+	const int index = Menu::DisplayMenu(title, options);
+
+	switch (index)
+	{
+		case 0:
+			Grid::DrawGrid(playerMap.map);
+			system("pause>nul");
+			break;
+		case 1:
+			break;
+		case 2:
+			break;
+		default:
+			break;
+	}
 
 	return 0;
 }

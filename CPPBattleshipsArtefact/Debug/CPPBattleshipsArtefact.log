@@ -1,3 +1,7 @@
-﻿  Menu.cpp
-C:\Users\samhe\OneDrive\Documents\Game Development\C++ Projects\CPPBattleshipsArtefact\CPPBattleshipsArtefact\Menu.cpp(59,21): warning C4018: '<': signed/unsigned mismatch
-  CPPBattleshipsArtefact.vcxproj -> C:\Users\samhe\OneDrive\Documents\Game Development\C++ Projects\CPPBattleshipsArtefact\Debug\CPPBattleshipsArtefact.exe
+﻿  CPPBattleshipsArtefact.cpp
+  Grid.cpp
+K:\CPPBattleshipsArtefact\CPPBattleshipsArtefact\CPPBattleshipsArtefact\Grid.cpp(7,20): warning C4018:  '<': signed/unsigned mismatch
+  Menu.cpp
+  Generating Code...
+K:\CPPBattleshipsArtefact\CPPBattleshipsArtefact\CPPBattleshipsArtefact\Grid.cpp(9,21): warning C4018:  '<': signed/unsigned mismatch
+  CPPBattleshipsArtefact.vcxproj -> K:\CPPBattleshipsArtefact\CPPBattleshipsArtefact\Debug\CPPBattleshipsArtefact.exe
