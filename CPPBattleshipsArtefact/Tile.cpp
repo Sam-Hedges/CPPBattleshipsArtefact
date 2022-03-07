@@ -6,6 +6,12 @@ void Tile::SetCoord(int x, int y)
 	position.Y = y;
 }
 
+void Tile::SetCoord(COORD pos)
+{
+	position.X = pos.X;
+	position.Y = pos.Y;
+}
+
 void Tile::SetScreenPos(int x, int y)
 {
 	screenPos.X = x;

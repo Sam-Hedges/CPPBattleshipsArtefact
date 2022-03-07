@@ -1,5 +1,9 @@
 ﻿  Grid.cpp
-C:\Users\samhe\OneDrive\Documents\Game Development\C++ Projects\CPPBattleshipsArtefact\CPPBattleshipsArtefact\Grid.cpp(62,66): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\samhe\OneDrive\Documents\Game Development\C++ Projects\CPPBattleshipsArtefact\CPPBattleshipsArtefact\Grid.cpp(77,56): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\samhe\OneDrive\Documents\Game Development\C++ Projects\CPPBattleshipsArtefact\CPPBattleshipsArtefact\Grid.cpp(77,56): warning C4267: 'initializing': conversion from 'size_t' to 'const int', possible loss of data
+C:\Users\samhe\OneDrive\Documents\Game Development\C++ Projects\CPPBattleshipsArtefact\CPPBattleshipsArtefact\Grid.cpp(27,26): warning C4838: conversion from 'int' to 'SHORT' requires a narrowing conversion
+C:\Users\samhe\OneDrive\Documents\Game Development\C++ Projects\CPPBattleshipsArtefact\CPPBattleshipsArtefact\Grid.cpp(27,33): warning C4838: conversion from 'int' to 'SHORT' requires a narrowing conversion
+C:\Users\samhe\OneDrive\Documents\Game Development\C++ Projects\CPPBattleshipsArtefact\CPPBattleshipsArtefact\Grid.cpp(78,66): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\samhe\OneDrive\Documents\Game Development\C++ Projects\CPPBattleshipsArtefact\CPPBattleshipsArtefact\Grid.cpp(80,31): warning C4838: conversion from 'int' to 'SHORT' requires a narrowing conversion
+C:\Users\samhe\OneDrive\Documents\Game Development\C++ Projects\CPPBattleshipsArtefact\CPPBattleshipsArtefact\Grid.cpp(80,48): warning C4838: conversion from 'int' to 'SHORT' requires a narrowing conversion
+C:\Users\samhe\OneDrive\Documents\Game Development\C++ Projects\CPPBattleshipsArtefact\CPPBattleshipsArtefact\Grid.cpp(92,56): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\samhe\OneDrive\Documents\Game Development\C++ Projects\CPPBattleshipsArtefact\CPPBattleshipsArtefact\Grid.cpp(92,56): warning C4267: 'initializing': conversion from 'size_t' to 'const int', possible loss of data
   CPPBattleshipsArtefact.vcxproj -> C:\Users\samhe\OneDrive\Documents\Game Development\C++ Projects\CPPBattleshipsArtefact\x64\Debug\CPPBattleshipsArtefact.exe

@@ -11,6 +11,7 @@ class Tile
 		bool isShip;
 		bool attacked;
 		void SetCoord(int x, int y);
+		void SetCoord(COORD pos);
 		void SetScreenPos(int x, int y);
 		void SetScreenPos(COORD pos);
 };

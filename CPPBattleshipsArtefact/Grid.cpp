@@ -2,6 +2,7 @@
 
 void Grid::DrawGrid(vector<vector<Tile>> &map)
 {
+	// Used as a container to draw the grid
 	vector<vector<Tile>> temp(map.size() + 1, vector<Tile>(map[0].size() + 1, Tile()));
 
 	vector<string> gridLines(map.size() + 1, "");
@@ -22,55 +23,69 @@ void Grid::DrawGrid(vector<vector<Tile>> &map)
 	{
 		for (int x = 0; x < temp[y].size(); x++)
 		{
+			// The Current Coordinate - 1
+			const COORD CCM = { x - 1, y - 1 };
+
+			// Set each tile to its' coordinate in the 2D vector
 			temp[y][x].SetCoord(y, x);
 
+			// Draws the Y axis of the grid
 			if (y == 0)
 			{
 				// If corner of grid; return empty; otherwise cycle through alphabet
 				const char c = x == 0 ? 32 : 96 + x;
+
+				// Save char as a string to concatenate with padding
 				string output(1, c);
 
-				// Cast acsii value to a char and print
+				// Set tile text
 				gridLines[y] += output + " ";
-				//cout << output << " ";
 			}
 
+			// Draws the X axis of the grid
 			if (x == 0)
 			{
+				// If this is the top left corner tile leave empty
 				if (y == 0) { continue; }
 
+				// Save current y value as string for the Y axis
 				string output = to_string(y);
 
+				// Set tile text
 				gridLines[y] += output + " ";
-				//cout << y << (y < 10 ? " " : "");
 			}
 
 			if (y != 0 && x != 0)
 			{
-				if (map[y-1][x-1].isShip)
+				Tile &currentTile = map[x - 1][y - 1];
+
+				switch (currentTile.isShip ? (currentTile.attacked ? 3 : 2) : 1)
 				{
-					gridLines[y] += "S ";
-					//cout << "S ";
-				}
-				else
-				{
-					gridLines[y] += ". ";
-					//cout << ". ";
+					case 1:
+						gridLines[y] += ". ";
+						break;
+					case 2:
+						gridLines[y] += "S ";
+						break;
+					case 3:
+						gridLines[y] += "X ";
+						break;
+					default:
+						break;
 				}
 
 				string yAxisStr = to_string(y);
 				int lineLen = ((temp.size() - 1) * 2) + (yAxisStr.size() + 1);
 				int startPos = (currentScreenSize.X - lineLen) / 2;
-				int xCoord = startPos + (x - 1) * 2;
-				int yCoord = y;
-				map[y-1][x-1].SetScreenPos(xCoord, yCoord);
+				COORD scrPos = { startPos + (x - 1) * 2, y - 1};
+				currentTile.SetScreenPos(scrPos);
 			}
 		}
 	}
 
 	for (int y = 0; y < gridLines.size(); y++)
 	{
-		// Repeated to collect current data 
+		// Repeated to collect current console screen buffer data  
 		GetConsoleScreenBufferInfo(h_out, &CSBI);
 
 		// Gets the length of the string
@@ -88,8 +103,8 @@ void Grid::DrawGrid(vector<vector<Tile>> &map)
 
 		cout << gridLines[y] << endl;
 	}
-
-	Output::OverridePrint(".", map[3][5].screenPos, 0, 1);
+	string str = to_string(temp[3][5].position.X) + ", " + to_string(temp[3][5].position.Y);
+	Output::OverridePrint(str.c_str(), map[3][5].screenPos, 0, 1);
 
 	// Sets the cursor position to the corner
 	COORD pos = CSBI.dwMaximumWindowSize; pos.X -= 1; pos.Y -= 1;

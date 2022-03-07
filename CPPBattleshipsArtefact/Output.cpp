@@ -33,7 +33,7 @@ COORD Output::PrintCentered(const char* string, int colour)
 	cout << string << endl;
 
 	// Returns the position of the printed line
-	COORD linePos; linePos.X = screenPos; linePos.Y = CSBI.dwCursorPosition.Y;
+	COORD linePos = { screenPos, CSBI.dwCursorPosition.Y };
 	return linePos;
 }
 
