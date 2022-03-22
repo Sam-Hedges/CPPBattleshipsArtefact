@@ -1,0 +1,7 @@
+﻿  CPPBattleshipsArtefact.cpp
+  Grid.cpp
+K:\CPPBattleshipsArtefact\CPPBattleshipsArtefact\CPPBattleshipsArtefact\Grid.cpp(7,20): warning C4018:  '<': signed/unsigned mismatch
+  Menu.cpp
+  Generating Code...
+K:\CPPBattleshipsArtefact\CPPBattleshipsArtefact\CPPBattleshipsArtefact\Grid.cpp(9,21): warning C4018:  '<': signed/unsigned mismatch
+  CPPBattleshipsArtefact.vcxproj -> K:\CPPBattleshipsArtefact\CPPBattleshipsArtefact\Debug\CPPBattleshipsArtefact.exe
