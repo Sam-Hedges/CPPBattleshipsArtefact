@@ -2,11 +2,14 @@
 #include "Vector2.h"
 #include <vector>
 #include <windows.h>
+#include <string>
 
 class Tile
 {
 	public:
+		string screenText;
 		COORD position;
+		// Used to know where on the screen each cell is positioned
 		COORD screenPos;
 		bool isShip;
 		bool attacked;

@@ -8,7 +8,8 @@ class Map
 		vector<vector<Tile>> map;
 		vector<Ship> ships;
 
-		Map(Vector2 mapSize);
-		static Vector2 MapSize(vector<vector<Tile>> map);
+		Map();
+		Map(COORD mapSize); // Constructors
+		static COORD MapSize(vector<vector<Tile>> map);
 };
 

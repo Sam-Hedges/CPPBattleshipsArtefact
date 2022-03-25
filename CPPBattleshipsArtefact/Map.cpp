@@ -1,8 +1,13 @@
 #include "Map.h"
 
-Map::Map(Vector2 mapSize)
+Map::Map() {
+	COORD size { 10, 10 };
+	Map(size);
+}
+
+Map::Map(COORD mapSize)
 {
-	vector<vector<Tile>> temp(mapSize.x, vector<Tile>(mapSize.y, Tile()));
+	vector<vector<Tile>> temp(mapSize.X, vector<Tile>(mapSize.Y, Tile()));
 
 	for (int col = 0; col < temp.size(); col++)
 	{
@@ -15,7 +20,8 @@ Map::Map(Vector2 mapSize)
 	map = temp;
 }
 
-Vector2 Map::MapSize(vector<vector<Tile>> map)
-{
-	return Vector2(map.size(), map[0].size());
+COORD Map::MapSize(vector<vector<Tile>> map) {
+
+	const COORD size = { static_cast<SHORT>(map.size()), static_cast<SHORT>(map[0].size()) };
+	return size;
 }

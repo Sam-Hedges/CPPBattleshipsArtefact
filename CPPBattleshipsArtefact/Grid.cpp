@@ -1,7 +1,19 @@
 #include "Grid.h"
 
-void Grid::DrawGrid(vector<vector<Tile>> &map)
-{
+void Grid::DrawGridCentered(Map& map) {
+	SetupGrid(map.map, Screen::Center);
+}
+
+void Grid::DrawGridLeft(Map& map) {
+	SetupGrid(map.map, Screen::Left);
+}
+
+void Grid::DrawGridRight(Map& map) {
+	SetupGrid(map.map, Screen::Right);
+}
+
+void Grid::SetupGrid(vector<vector<Tile>>& map, Screen gridOrigin) {
+
 	// Used as a container to draw the grid
 	vector<vector<Tile>> temp(map.size() + 1, vector<Tile>(map[0].size() + 1, Tile()));
 
@@ -19,99 +31,126 @@ void Grid::DrawGrid(vector<vector<Tile>> &map)
 	// Saves the current screen size of the active console screen-buffer
 	const COORD currentScreenSize = CSBI.dwSize;
 
-	for (int y = 0; y < temp.size(); y++)
-	{
-		for (int x = 0; x < temp[y].size(); x++)
-		{
-			// The Current Coordinate - 1
-			const COORD CCM = { x - 1, y - 1 };
+	for (int y = 0; y < temp.size(); y++) {
+
+		// Used as temporary variable to store the cumulative text of the current row of tiles
+		string currentRow;
+
+		for (int x = 0; x < temp[y].size(); x++) {
 
 			// Set each tile to its' coordinate in the 2D vector
 			temp[y][x].SetCoord(y, x);
 
-			// Draws the Y axis of the grid
-			if (y == 0)
-			{
-				// If corner of grid; return empty; otherwise cycle through alphabet
+			// Assigns the Y axis values of the grid (alphabet)
+			if (y == 0) {
+
+				// The top left corner case is dealt with in this x axis
+				//
+				// If corner of grid return empty, otherwise cycle through alphabet
 				const char c = x == 0 ? 32 : 96 + x;
 
 				// Save char as a string to concatenate with padding
 				string output(1, c);
 
 				// Set tile text
-				gridLines[y] += output + " ";
+				temp[y][x].screenText = output + " ";
 			}
 
-			// Draws the X axis of the grid
-			if (x == 0)
-			{
-				// If this is the top left corner tile leave empty
-				if (y == 0) { continue; }
+			// Assigns the X axis values of the grid (numerical)
+			if (x == 0 && y != 0) {
 
 				// Save current y value as string for the Y axis
 				string output = to_string(y);
 
 				// Set tile text
-				gridLines[y] += output + " ";
+				temp[y][x].screenText = output + " ";
 			}
 
-			if (y != 0 && x != 0)
-			{
-				Tile &currentTile = map[x - 1][y - 1];
+			// Assigns the values of the grid play area
+			if (y != 0 && x != 0) {
 
-				switch (currentTile.isShip ? (currentTile.attacked ? 3 : 2) : 1)
-				{
-					case 1:
-						gridLines[y] += ". ";
-						break;
-					case 2:
-						gridLines[y] += "S ";
-						break;
-					case 3:
-						gridLines[y] += "X ";
-						break;
-					default:
-						break;
+				Tile& currentTile = map[x - 1][y - 1];
+
+				switch (currentTile.isShip ? (currentTile.attacked ? 3 : 2) : 1) {
+				case 1:
+					temp[y][x].screenText = ". ";
+					break;
+				case 2:
+					temp[y][x].screenText = "S ";
+					break;
+				case 3:
+					temp[y][x].screenText = "X ";
+					break;
+				default:
+					break;
 				}
 
-				string yAxisStr = to_string(y);
-				int lineLen = ((temp.size() - 1) * 2) + (yAxisStr.size() + 1);
-				int startPos = (currentScreenSize.X - lineLen) / 2;
-				COORD scrPos = { startPos + (x - 1) * 2, y - 1};
-				currentTile.SetScreenPos(scrPos);
-			}
-		}
-	}
+				// Sets the text of the referenced map to the start values of the temp grid
+				currentTile.screenText = temp[y][x].screenText;
 
-	for (int y = 0; y < gridLines.size(); y++)
-	{
+				#pragma region Set Screen Position
+
+				// Get the current Y axis number as a string
+				string yAxisStr = to_string(y);
+
+				// Length of the line is (length of row * (2 to take into account padding)) +
+				// (the length of the yAxisStr + (1 for padding))
+				int lineLen = (map.size() * 2) + (yAxisStr.size() + 1);
+
+				// The centered start position on the screen based on the screenWidth and lineLength
+				int startPos = GetScreenPosition(currentScreenSize.X, lineLen, gridOrigin);
+
+				// Set a COORD to the centered startPos adjusted for the current tile position
+				COORD scrPos = { startPos + (x - 1) * 2, y - 1 };
+
+				// Sets the current tiles' screen position
+				currentTile.SetScreenPos(scrPos);
+
+				#pragma endregion
+			}
+
+			// Get Current row of text from the grid
+			currentRow += temp[y][x].screenText;
+
+		}
+
 		// Repeated to collect current console screen buffer data  
 		GetConsoleScreenBufferInfo(h_out, &CSBI);
 
 		// Gets the length of the string
-		const int stringLength = strlen(gridLines[y].c_str());
+		const int stringLength = strlen(currentRow.c_str());
 
 		// Figure out how many spaces in needed in order for string to be centered
-		const int screenPos = (currentScreenSize.X - stringLength) / 2;
+		const int screenPos = GetScreenPosition(currentScreenSize.X, stringLength, gridOrigin);
 
 		// Initialise a new position screenPos amount of spaces in X axis
-		COORD pos; pos.X = screenPos; pos.Y = CSBI.dwCursorPosition.Y;
+		COORD pos = { screenPos, CSBI.dwCursorPosition.Y };
+
+		// If the current row is greater than 10 then adjust the padding of the line
 		if (y >= 10) { pos.X -= 1; }
 
 		// Sets the cursor position to the coordinate passed in
 		SetConsoleCursorPosition(h_out, pos);
 
-		cout << gridLines[y] << endl;
+		// Print the current row out to the console
+		cout << currentRow << endl;
 	}
-	string str = to_string(temp[3][5].position.X) + ", " + to_string(temp[3][5].position.Y);
-	Output::OverridePrint(str.c_str(), map[3][5].screenPos, 0, 1);
 
 	// Sets the cursor position to the corner
 	COORD pos = CSBI.dwMaximumWindowSize; pos.X -= 1; pos.Y -= 1;
 	SetConsoleCursorPosition(h_out, pos);
 }
 
-void Grid::Setup(Map& map)
-{
+int Grid::GetScreenPosition(int screenWidth, int stringLength, Screen origin) {
 
+	switch (origin) {
+		case Screen::Center:
+			return (screenWidth - stringLength) / 2;
+		case Screen::Left:
+			return (screenWidth - stringLength) / 4;
+		case Screen::Right:
+			return ((screenWidth - stringLength) / 4) * 3;
+		default:
+			return 0;
+	}
 }

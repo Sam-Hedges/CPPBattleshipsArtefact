@@ -1,9 +1,30 @@
-﻿  Grid.cpp
-C:\Users\samhe\OneDrive\Documents\Game Development\C++ Projects\CPPBattleshipsArtefact\CPPBattleshipsArtefact\Grid.cpp(27,26): warning C4838: conversion from 'int' to 'SHORT' requires a narrowing conversion
-C:\Users\samhe\OneDrive\Documents\Game Development\C++ Projects\CPPBattleshipsArtefact\CPPBattleshipsArtefact\Grid.cpp(27,33): warning C4838: conversion from 'int' to 'SHORT' requires a narrowing conversion
-C:\Users\samhe\OneDrive\Documents\Game Development\C++ Projects\CPPBattleshipsArtefact\CPPBattleshipsArtefact\Grid.cpp(78,66): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\samhe\OneDrive\Documents\Game Development\C++ Projects\CPPBattleshipsArtefact\CPPBattleshipsArtefact\Grid.cpp(80,31): warning C4838: conversion from 'int' to 'SHORT' requires a narrowing conversion
-C:\Users\samhe\OneDrive\Documents\Game Development\C++ Projects\CPPBattleshipsArtefact\CPPBattleshipsArtefact\Grid.cpp(80,48): warning C4838: conversion from 'int' to 'SHORT' requires a narrowing conversion
-C:\Users\samhe\OneDrive\Documents\Game Development\C++ Projects\CPPBattleshipsArtefact\CPPBattleshipsArtefact\Grid.cpp(92,56): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\samhe\OneDrive\Documents\Game Development\C++ Projects\CPPBattleshipsArtefact\CPPBattleshipsArtefact\Grid.cpp(92,56): warning C4267: 'initializing': conversion from 'size_t' to 'const int', possible loss of data
-  CPPBattleshipsArtefact.vcxproj -> C:\Users\samhe\OneDrive\Documents\Game Development\C++ Projects\CPPBattleshipsArtefact\x64\Debug\CPPBattleshipsArtefact.exe
+﻿  CPPBattleshipsArtefact.cpp
+C:\Users\samhe\OneDrive\Documents\Game Development\C++ Projects\CPPBattleshipsArtefact\CPPBattleshipsArtefact\Grid.h(13): warning C4091: 'static ': ignored on left of 'Grid::Screen' when no variable is declared
+  Game.cpp
+C:\Users\samhe\OneDrive\Documents\Game Development\C++ Projects\CPPBattleshipsArtefact\CPPBattleshipsArtefact\Grid.h(13): warning C4091: 'static ': ignored on left of 'Grid::Screen' when no variable is declared
+  Grid.cpp
+C:\Users\samhe\OneDrive\Documents\Game Development\C++ Projects\CPPBattleshipsArtefact\CPPBattleshipsArtefact\Grid.h(13): warning C4091: 'static ': ignored on left of 'Grid::Screen' when no variable is declared
+C:\Users\samhe\OneDrive\Documents\Game Development\C++ Projects\CPPBattleshipsArtefact\CPPBattleshipsArtefact\Grid.cpp(98,59): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\samhe\OneDrive\Documents\Game Development\C++ Projects\CPPBattleshipsArtefact\CPPBattleshipsArtefact\Grid.cpp(104,31): warning C4838: conversion from 'int' to 'SHORT' requires a narrowing conversion
+C:\Users\samhe\OneDrive\Documents\Game Development\C++ Projects\CPPBattleshipsArtefact\CPPBattleshipsArtefact\Grid.cpp(104,48): warning C4838: conversion from 'int' to 'SHORT' requires a narrowing conversion
+C:\Users\samhe\OneDrive\Documents\Game Development\C++ Projects\CPPBattleshipsArtefact\CPPBattleshipsArtefact\Grid.cpp(121,54): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\samhe\OneDrive\Documents\Game Development\C++ Projects\CPPBattleshipsArtefact\CPPBattleshipsArtefact\Grid.cpp(121,54): warning C4267: 'initializing': conversion from 'size_t' to 'const int', possible loss of data
+C:\Users\samhe\OneDrive\Documents\Game Development\C++ Projects\CPPBattleshipsArtefact\CPPBattleshipsArtefact\Grid.cpp(127,17): warning C4838: conversion from 'const int' to 'SHORT' requires a narrowing conversion
+  Input.cpp
+  Map.cpp
+C:\Users\samhe\OneDrive\Documents\Game Development\C++ Projects\CPPBattleshipsArtefact\CPPBattleshipsArtefact\Map.cpp(5,6): error C2371: 'size': redefinition; different basic types
+C:\Users\samhe\OneDrive\Documents\Game Development\C++ Projects\CPPBattleshipsArtefact\CPPBattleshipsArtefact\Map.cpp(4): message : see declaration of 'size'
+C:\Users\samhe\OneDrive\Documents\Game Development\C++ Projects\CPPBattleshipsArtefact\CPPBattleshipsArtefact\Map.cpp(25,31): warning C4838: conversion from 'unsigned __int64' to 'SHORT' requires a narrowing conversion
+C:\Users\samhe\OneDrive\Documents\Game Development\C++ Projects\CPPBattleshipsArtefact\CPPBattleshipsArtefact\Map.cpp(25,49): warning C4267: 'initializing': conversion from 'size_t' to 'SHORT', possible loss of data
+C:\Users\samhe\OneDrive\Documents\Game Development\C++ Projects\CPPBattleshipsArtefact\CPPBattleshipsArtefact\Map.cpp(25,46): warning C4838: conversion from 'unsigned __int64' to 'SHORT' requires a narrowing conversion
+  Menu.cpp
+C:\Users\samhe\OneDrive\Documents\Game Development\C++ Projects\CPPBattleshipsArtefact\CPPBattleshipsArtefact\Menu.cpp(9,40): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\samhe\OneDrive\Documents\Game Development\C++ Projects\CPPBattleshipsArtefact\CPPBattleshipsArtefact\Menu.cpp(9,40): warning C4267: 'initializing': conversion from 'size_t' to 'const int', possible loss of data
+  Output.cpp
+C:\Users\samhe\OneDrive\Documents\Game Development\C++ Projects\CPPBattleshipsArtefact\CPPBattleshipsArtefact\Output.cpp(18,41): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\samhe\OneDrive\Documents\Game Development\C++ Projects\CPPBattleshipsArtefact\CPPBattleshipsArtefact\Output.cpp(18,41): warning C4267: 'initializing': conversion from 'size_t' to 'const int', possible loss of data
+C:\Users\samhe\OneDrive\Documents\Game Development\C++ Projects\CPPBattleshipsArtefact\CPPBattleshipsArtefact\Output.cpp(36,20): warning C4838: conversion from 'const int' to 'SHORT' requires a narrowing conversion
+  Ship.cpp
+  Tile.cpp
+  Vector2.cpp
+  Generating Code...

@@ -9,8 +9,14 @@ using namespace std;
 
 class Grid
 {
+	private:
+		static enum class Screen { Left, Right, Center };
+		static int GetScreenPosition(int screenWidth, int stringLength, Screen origin);
+		static void SetupGrid(vector<vector<Tile>>& map, Screen gridOrigin);
+
 	public:
-		static void Setup(Map &map);
-		static void DrawGrid(vector<vector<Tile>> &map);
+		static void DrawGridCentered(Map &map);
+		static void DrawGridLeft(Map &map);
+		static void DrawGridRight(Map &map);
 };
 

@@ -7,10 +7,11 @@
 #include <conio.h>
 #include <windows.h>
 #include "Menu.h"
+#include "Game.h"
 
 int main()
 {
-	Map playerMap(Vector2(10, 10));
+	Game game;
 
 	ShowWindow(GetConsoleWindow(), SW_MAXIMIZE);
 
@@ -22,7 +23,7 @@ int main()
 	switch (index)
 	{
 		case 0:
-			Grid::DrawGrid(playerMap.map);
+			game.SetupShips();
 			system("pause>nul");
 			break;
 		case 1:

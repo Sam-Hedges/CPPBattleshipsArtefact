@@ -1,0 +1,3 @@
+C:\Users\samhe\OneDrive\Documents\Game Development\C++ Projects\CPPBattleshipsArtefact\x64\Debug\CPPBattleshipsArtefact.pdb
+C:\Users\samhe\OneDrive\Documents\Game Development\C++ Projects\CPPBattleshipsArtefact\CPPBattleshipsArtefact\x64\Debug\CPPBattleshipsArtefact.exe
+C:\Users\samhe\OneDrive\Documents\Game Development\C++ Projects\CPPBattleshipsArtefact\CPPBattleshipsArtefact\x64\Debug\CPPBattleshipsArtefact.pdb
