@@ -1,12 +1,15 @@
 #include "Map.h"
 
-Map::Map() {
-	COORD size { 10, 10 };
-	Map(size);
+Map::Map(COORD mapSize) {
+	InitMap(mapSize);
 }
 
-Map::Map(COORD mapSize)
-{
+Map::Map() {
+	COORD size{ 10, 10 };
+	InitMap(size);
+}
+
+void Map::InitMap(COORD mapSize) {
 	vector<vector<Tile>> temp(mapSize.X, vector<Tile>(mapSize.Y, Tile()));
 
 	for (int col = 0; col < temp.size(); col++)
@@ -21,7 +24,6 @@ Map::Map(COORD mapSize)
 }
 
 COORD Map::MapSize(vector<vector<Tile>> map) {
-
 	const COORD size = { static_cast<SHORT>(map.size()), static_cast<SHORT>(map[0].size()) };
 	return size;
 }

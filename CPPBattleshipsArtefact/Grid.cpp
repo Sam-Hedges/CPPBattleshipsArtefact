@@ -1,18 +1,18 @@
 #include "Grid.h"
 
 void Grid::DrawGridCentered(Map& map) {
-	SetupGrid(map.map, Screen::Center);
+	SetupGrid(map.map, Output::Screen::Center);
 }
 
 void Grid::DrawGridLeft(Map& map) {
-	SetupGrid(map.map, Screen::Left);
+	SetupGrid(map.map, Output::Screen::Left);
 }
 
 void Grid::DrawGridRight(Map& map) {
-	SetupGrid(map.map, Screen::Right);
+	SetupGrid(map.map, Output::Screen::Right);
 }
 
-void Grid::SetupGrid(vector<vector<Tile>>& map, Screen gridOrigin) {
+void Grid::SetupGrid(vector<vector<Tile>>& map, Output::Screen gridOrigin) {
 
 	// Used as a container to draw the grid
 	vector<vector<Tile>> temp(map.size() + 1, vector<Tile>(map[0].size() + 1, Tile()));
@@ -101,7 +101,7 @@ void Grid::SetupGrid(vector<vector<Tile>>& map, Screen gridOrigin) {
 				int startPos = GetScreenPosition(currentScreenSize.X, lineLen, gridOrigin);
 
 				// Set a COORD to the centered startPos adjusted for the current tile position
-				COORD scrPos = { startPos + (x - 1) * 2, y - 1 };
+				COORD scrPos = { startPos + (x - 1) * 2,  CSBI.dwCursorPosition.Y + y - 1 };
 
 				// Sets the current tiles' screen position
 				currentTile.SetScreenPos(scrPos);
@@ -141,14 +141,14 @@ void Grid::SetupGrid(vector<vector<Tile>>& map, Screen gridOrigin) {
 	SetConsoleCursorPosition(h_out, pos);
 }
 
-int Grid::GetScreenPosition(int screenWidth, int stringLength, Screen origin) {
+int Grid::GetScreenPosition(int screenWidth, int stringLength, Output::Screen origin) {
 
 	switch (origin) {
-		case Screen::Center:
+		case Output::Screen::Center:
 			return (screenWidth - stringLength) / 2;
-		case Screen::Left:
+		case Output::Screen::Left:
 			return (screenWidth - stringLength) / 4;
-		case Screen::Right:
+		case Output::Screen::Right:
 			return ((screenWidth - stringLength) / 4) * 3;
 		default:
 			return 0;

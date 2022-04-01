@@ -1,7 +1,7 @@
 #include "Output.h"
 
-COORD Output::PrintCentered(const char* string, int colour)
-{
+COORD Output::Print(const char* string, Screen origin, int colour) {
+	
 	// Used to store data on the current console screen buffer
 	CONSOLE_SCREEN_BUFFER_INFO CSBI;
 
@@ -17,8 +17,21 @@ COORD Output::PrintCentered(const char* string, int colour)
 	// Gets the length of the string
 	const int stringLength = strlen(string);
 
-	// Figure out how many spaces in needed in order for string to be centered
-	const int screenPos = (currentScreenSize.X - stringLength) / 2;
+	// Figure out how many spaces in needed in order for string to be centered on origin
+	int screenPos;
+	switch (origin) {
+	case Output::Screen::Center:
+		screenPos = (currentScreenSize.X - stringLength) / 2;
+		break;
+	case Output::Screen::Left:
+		screenPos = (currentScreenSize.X - stringLength) / 4;
+		break;
+	case Output::Screen::Right:
+		screenPos = ((currentScreenSize.X - stringLength) / 4) * 3;
+		break;
+	default:
+		screenPos = 0;
+	}
 
 	// Initialise a new position screenPos amount of spaces in X axis
 	COORD pos; pos.X = screenPos; pos.Y = CSBI.dwCursorPosition.Y;
@@ -35,6 +48,22 @@ COORD Output::PrintCentered(const char* string, int colour)
 	// Returns the position of the printed line
 	COORD linePos = { screenPos, CSBI.dwCursorPosition.Y };
 	return linePos;
+
+}
+
+COORD Output::PrintCentered(const char* string, int colour)
+{
+	return Print(string, Screen::Center, colour);
+}
+
+COORD Output::PrintLeft(const char* string, int colour)
+{
+	return Print(string, Screen::Left, colour);
+}
+
+COORD Output::PrintRight(const char* string, int colour)
+{
+	return Print(string, Screen::Right, colour);
 }
 
 void Output::OverridePrint(const char* string, COORD& pos, int selected, int previouslySelected)

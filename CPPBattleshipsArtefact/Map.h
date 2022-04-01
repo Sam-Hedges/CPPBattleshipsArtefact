@@ -8,8 +8,9 @@ class Map
 		vector<vector<Tile>> map;
 		vector<Ship> ships;
 
-		Map();
-		Map(COORD mapSize); // Constructors
+		Map(COORD mapSize);
+		Map(); // Constructors
+		void InitMap(COORD mapSize);
 		static COORD MapSize(vector<vector<Tile>> map);
 };
 
