@@ -44,36 +44,39 @@ void Game::SetupShips() {
 
 	while (true) {
 
-		COORD currentScreenPos = map.map[currentPosition.Y][currentPosition.X].screenPos;
+		COORD currentScreenPos = map.map[currentPosition.X][currentPosition.Y].screenPos;
 
-		Output::OverridePrint(to_string(currentPosition.Y).c_str(), currentScreenPos, 0, 1);
+		Output::OverridePrint(".", currentScreenPos, 0, 1);
+		Output::HideCursor();
+
 		// Pauses the system for an input
 		// The >nul stops it printing a message
 		system("pause>nul");
 
-		if (Input::UpArrow) {
-			currentPosition.Y = currentPosition.Y - 1;
-			currentPosition.Y = currentPosition.Y < 0 ? mapSize.Y : currentPosition.Y;
+		if (Input::UpArrow()) {
+			currentPosition.Y--;
+			currentPosition.Y = currentPosition.Y < 0 ? mapSize.Y - 1 : currentPosition.Y;
 		}
-		else if (Input::DownArrow) {
-			currentPosition.Y = currentPosition.Y + 1;
-			currentPosition.Y = currentPosition.Y > mapSize.Y-- ? 0 : currentPosition.Y;
+		else if (Input::DownArrow()) {
+			currentPosition.Y++;
+			currentPosition.Y = currentPosition.Y > mapSize.Y - 1 ? 0 : currentPosition.Y;
 		}
-		else if (Input::LeftArrow) {
-			currentPosition.X = currentPosition.X - 1;
-			currentPosition.X = currentPosition.Y < 0 ? 0 : currentPosition.X;
+		else if (Input::LeftArrow()) {
+			currentPosition.X++;
+			currentPosition.X = currentPosition.X > mapSize.X - 1 ? 0 : currentPosition.X;
 		}
-		else if (Input::RightArrow) {
-			currentPosition.Y = currentPosition.X + 1;
-			currentPosition.Y = currentPosition.X > mapSize.X-- ? mapSize.X-- : currentPosition.X;
+		else if (Input::RightArrow()) {
+			currentPosition.X--;
+			currentPosition.X = currentPosition.X < 0 ? mapSize.X - 1 : currentPosition.X;
 		}
-		else if (Input::Enter) {
+		else if (Input::Enter()) {
 
 		}
-		else if (Input::Space) {
+		else if (Input::Space()) {
 
 		}
 
-		Output::OverridePrint(to_string(currentPosition.Y).c_str(), currentScreenPos, 0, 1);
+		Output::OverridePrint(".", currentScreenPos, 0, 0);
+		Output::HideCursor();
 	}
 }

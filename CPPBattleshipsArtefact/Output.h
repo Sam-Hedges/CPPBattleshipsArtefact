@@ -25,6 +25,7 @@ class Output
 			Yellow,
 			White
 		};
+		static void HideCursor();
 
 	private:
 		static COORD Print(const char* string, Screen origin, int colour);

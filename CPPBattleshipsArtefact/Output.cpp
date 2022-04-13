@@ -89,3 +89,21 @@ void Output::OverridePrint(const char* string, COORD& pos, int selected, int pre
 	// Prints over the currently displayed option in the new colour
 	cout << string;
 }
+
+void Output::HideCursor() {
+	// Used to store data on the current console screen buffer
+	CONSOLE_SCREEN_BUFFER_INFO CSBI;
+
+	// Gets the standard output device; the active console screen-buffer
+	const HANDLE h_out = GetStdHandle(STD_OUTPUT_HANDLE);
+
+	// Stores the data of hOut in csbi via a reference 
+	GetConsoleScreenBufferInfo(h_out, &CSBI);
+
+	// Saves the current screen size of the active console screen-buffer
+	const COORD currentScreenSize = CSBI.dwSize;
+	
+	// Sets the cursor position to the corner
+	COORD pos = CSBI.dwMaximumWindowSize; pos.X -= 1; pos.Y -= 1;
+	SetConsoleCursorPosition(h_out, pos);
+}

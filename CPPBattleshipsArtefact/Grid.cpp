@@ -101,7 +101,7 @@ void Grid::SetupGrid(vector<vector<Tile>>& map, Output::Screen gridOrigin) {
 				int startPos = GetScreenPosition(currentScreenSize.X, lineLen, gridOrigin);
 
 				// Set a COORD to the centered startPos adjusted for the current tile position
-				COORD scrPos = { startPos + (x - 1) * 2,  CSBI.dwCursorPosition.Y + y - 1 };
+				COORD scrPos = { startPos + x * 2, CSBI.dwCursorPosition.Y + 1};
 
 				// Sets the current tiles' screen position
 				currentTile.SetScreenPos(scrPos);
